@@ -1,0 +1,215 @@
+/******* GLOBALS *******/
+@import url(http://fonts.googleapis.com/css?family=Yesteryear);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300);
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+@import url(http://fonts.googleapis.com/css?family=Berkshire+Swash);
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+  padding-right: 5px;
+}
+body, ul, li {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #ccc;
+}
+
+/* SET UP LAYOUT FOR NAVAGATION HEADER AND MENU*/
+header {
+  width: 100%;
+  height: 70px;
+  box-sizing: border-box;
+  background-color: rgba(12, 27, 12, 0.82);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  padding: 0px 0px 0px 30px;
+}
+header h1 {
+  float: left;
+  margin-left: 125px;
+  margin-top: 10px;
+  color: white;
+  font-family: 'Yesteryear', cursive;
+}
+header nav ul {
+  height: 70px;
+  float: right;
+}
+
+header nav ul li {
+  height: 70px;
+  display: inline-block;
+}
+header nav ul li a {
+  height: 30px;
+  display: block;
+  padding: 17px 20px;
+  color: white;
+  font-size: 2.2em;
+  text-decoration: none;
+  border-top: 3px solid #373948;
+  border-bottom: 3px solid #373948;
+  -webkit-transition: color 1s ease;
+  -moz-transition: color 1s ease;
+  -o-transition: color 1s ease;
+  transition: color 1s ease;
+}
+header nav ul li a:hover{
+  color: #373948;
+}
+header nav ul li a.active{
+  height: 33px;
+  border-bottom: none;
+}
+header nav ul li a.link-1 { background-color: #00c0e4; }
+header nav ul li a.link-2 { background-color: #e6567a; }
+header nav ul li a.zoom-in { background-color: #eac14d; }
+header nav ul li a.zoom-out { background-color: #5bd999; }
+
+/* SET UP SECTION BELOW NAVIGATION MENU/HEADER */
+section {
+  width: 100%;
+  height: 950px;
+  position:fixed;
+  top: 70px; left: 0px;
+  box-sizing: border-box;
+  padding: 20px;
+  overflow: hidden;
+}
+section#home { background-color: #00c0e4; }
+section#dashboard{ background-color: #e6567a; }
+/*section#{ background-color: #eac14d; }  //yellow 
+section# { background-color: #5bd999; } */
+
+/* SET UP SECTION HEADER FOR THE PAGE */
+section h1 {
+  font: 80px/1.3 'Berkshire Swash', Helvetica, sans-serif;
+  color: #2b2b2b;
+  text-align: center;
+  text-shadow: 1px 1px 0px white, -11px -11px 2.5px rgba(134,150,150,0.45);
+  margin-top: 5px; margin-bottom: 5px;
+}
+
+/* SET UP USER RADIO SELECT BAR */
+form div.user_select {
+  width: 80%;
+  height: 20px;
+  position: fixed;
+  top: 225px; left: 5%;
+  border: 7px solid #a1a1a1;
+  padding: 15px 40px;
+  background: #fff;
+  border-radius: 25px;
+}
+
+input[type=radio]:checked + span {
+  font-weight: bold;
+  font-size: 18px;
+}
+/*implement grey out feature when radio is not checked
+input[type=radio]:disabled + span {
+  color: #ccc;
+}*/
+
+/* SET UP LAYOUT FOR 2 HOME_CONTENT BOX */
+.home_content {
+  width: 40%;
+  height: 425px;
+  position: fixed;
+  top: 305px; left: 5%;
+  border: 7px solid #a1a1a1;
+  padding: 0;
+  background-color: #fff;
+  border-radius: 25px;
+}
+#program { left: 5%; }
+#machine { left: 52%; }
+
+/* SET UP FORM LAYOUT FOR HOME_CONTENT BOX */
+.home_content h1 {
+  font-size: 25px;
+  color: #fff;
+  background: #5b6066; 
+  text-shadow: none;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 17px 17px 0 0;
+  margin-top: 0;
+}
+.home_content div {
+  position: absolute;
+  display: block;
+  font-size: 22px;
+}
+form div { margin-left: 0%;}
+form div div { margin-left: 20%;}
+form div div.first { margin-top: 50px;}
+form div div.second { margin-top: 155px;}
+form div div.third { margin-top: 270px;}
+
+/* SET UP BIG SUBMIT BUTTON */
+input#bigbutton {
+width:400px;
+top: 790px;
+left: 32%;
+position: fixed;
+background: #3e9cbf; /*the colour of the button*/
+padding: 8px 14px 10px; /*apply some padding inside the button*/
+border:1px solid #3e9cbf; /*required or the default border for the browser will appear*/
+cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+/*style the text*/
+font-size:1.5em;
+font-family: 'Berkshire Swash', Helvetica, sans-serif;
+letter-spacing:.1em;
+text-shadow: 0 -1px 0px rgba(0, 0, 0, 0.3); /*give the text a shadow */
+color: #fff;
+/*use box-shadow to give the button some depth*/
+-webkit-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 5px 0px 0px #205c73, 0px 10px 5px #999;
+-moz-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 5px 0px 0px #205c73, 0px 10px 5px #999;
+box-shadow: inset 0px 1px 0px #3e9cbf, 0px 5px 0px 0px #205c73, 0px 10px 5px #999;
+/*give the corners a small curve*/
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+}
+/***SET THE BUTTON'S HOVER AND FOCUS STATES***/
+input#bigbutton:hover, input#bigbutton:focus {
+color:#dfe7ea;
+/*reduce the size of the shadow to give a pushed effect*/
+-webkit-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
+-moz-box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
+box-shadow: inset 0px 1px 0px #3e9cbf, 0px 2px 0px 0px #205c73, 0px 2px 5px #999;
+}
+
+input#inject_button{
+width:60px; /*same as the height*/
+height:60px; /*same as the width*/
+top: 860px;
+left: 2%;
+position:fixed;
+background-color:#ff0000;
+border:1px solid #ff0000; /*same colour as the background*/
+cursor:pointer;
+color:#fff;
+font-size:0.15em;
+/*set the border-radius at half the size of the width and height*/
+-webkit-border-radius: 50px;
+-moz-border-radius: 50px;
+border-radius: 50px;
+/*give the button a small drop shadow*/
+-webkit-box-shadow: 0 0 10px rgba(0,0,0, .75);
+-moz-box-shadow: 0 0 10px rgba(0,0,0, .75);
+box-shadow: 2px 2px 15px rgba(0,0,0, .75);
+}
+/***STYLE THE BUTTON'S HOVER STATE***/
+input#inject_button:hover{
+background:#c20b0b;
+border:1px solid #c20b0b;
+/*reduce the size of the shadow to give a pushed effect*/
+-webkit-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+-moz-box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+}
