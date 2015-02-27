@@ -60,7 +60,7 @@ function rand_date($min_date, $max_date, $opt) {	//helper function
 }
 
 /* Give time1 and time2 in 'h:i:s' format, return sum of time1 + time2 */
-function add_HMS_Time($time1, $time2) {	//helper function
+function add_HMS_Time($time1, $time2) {				//helper function
 	$original_array[0]=$time1; $original_array[1]=$time2;
 	$hours=0; $minutes=0; $seconds=0;
 	foreach($original_array AS $value){
@@ -79,6 +79,7 @@ function add_HMS_Time($time1, $time2) {	//helper function
 	return $sum_time;
 }
 
+/* Given time1 and time2 in 'h:i:s' format, return ratio of time1 over time 2 */
 function timeRatio($time1, $time2) {
 	//split both times into a list containing hours, minutes, and seconds
 	list($h1, $m1, $s1) = explode(":", $time1); 
@@ -89,6 +90,55 @@ function timeRatio($time1, $time2) {
 	$seconds2=0;
 	$seconds2 += (intval($h2) * 3600) + (intval($m2) * 60) + (intval($s2));
 	return $seconds1/$seconds2;
+}
+
+/* Given a random m_id in ‘LAX’, ‘ROTX’, ‘VMCX’ format, insert ‘num’ number of records to Machine Log table */
+function generateMachineLog($m_id, $num) {
+	
+	for($i=0; $i<$num; $i++) {
+		//generate a random date
+		$date=rand_date("2014/11/01", "2015/03/08", 1);
+		$run_time=rand_date("2015/02/28", "2015/03/08", 0.3);
+		$idle_time=rand_date("2015/02/28", "2015/03/08", 0.7);
+		$up_time=add_HMS_Time($run_time, $idle_time);
+
+		mysql_query("REPLACE INTO MACHINE_LOG
+			(MACHINE_ID, MACHINE_LOG_DATE, M_UP_TIME, M_RUN_TIME, M_IDLE_TIME) 
+			VALUES ('$m_id', '$date', '$up_time', '$run_time', '$idle_time') ") 
+			or die(mysql_error());
+	}
+}
+
+/* Given a random p_id in ‘OXXXXX’ format, m_id in ‘LAX’, ‘ROTX’, ‘VMCX’ format, op_id in ‘OP_XXXXXX’ format, insert ‘num’ number of records to Program Log table */
+function generateProgramLog($p_id, $m_id, $op_id, $num) {
+
+	for($i=0; $i<$num; $i++) {
+		//generate a random date
+		$date=rand_date("2014/11/01", "2015/03/08", 1);
+		
+		//check to make sure generated idle time is 25% or less of run time
+		do {
+			$run_time=rand_date("2015/02/28", "2015/03/08", 0.75);
+			$idle_time=rand_date("2015/02/28", "2015/03/08", 0.25);
+		}while (timeRatio($idle_time, $run_time) <= 0.25 );
+
+		$up_time=add_HMS_Time($run_time, $idle_time);
+
+		//randomize boolean true and false for P_Run_Success
+		$run_success= mt_rand(0,99999)%2;
+		
+		//randomize success rate for P_SUCCESS_RATE that is 87%<p<99%
+		do {
+			$comp_rate = mt_rand(0,100)/100;
+		} while ($comp_rate <= 0.87);
+
+		mysql_query("REPLACE INTO PROGRAM_LOG
+			(PROGRAM_ID, PROGRAM_LOG_DATE, MACHINE_ID, OPERATOR_ID, 
+				P_UP_TIME, P_RUN_TIME, P_IDLE_TIME, P_RUN_SUCCESS, P_SUCCESS_RATE) 
+			VALUES ('$p_id', '$date', '$m_id', '$op_id','$up_time', '$run_time', 
+				'$idle_time', '$run_success', '$comp_rate') ") 
+			or die(mysql_error());
+	}
 }
 
 /* Populate Program_ID, Machine_ID and Operator_ID */
@@ -107,53 +157,7 @@ function generateIDs($num) {	//working
 	}
 }
 
-function generateMachineLog($m_id, $num) {
-	
-	for($i=0; $i<$num; $i++) {
-		//generate a random date
-		$date=rand_date("2014/11/01", "2015/03/08", 1);
-		$run_time=rand_date("2015/02/28", "2015/03/08", 0.3);
-		$idle_time=rand_date("2015/02/28", "2015/03/08", 0.7);
-		$up_time=add_HMS_Time($run_time, $idle_time);
-
-		mysql_query("REPLACE INTO MACHINE_LOG
-			(MACHINE_ID, MACHINE_LOG_DATE, M_UP_TIME, M_RUN_TIME, M_IDLE_TIME) 
-			VALUES ('$m_id', '$date', '$up_time', '$run_time', '$idle_time') ") 
-			or die(mysql_error());
-	}
-}
-
-function generateProgramLog($p_id, $m_id, $op_id, $num) {
-
-	for($i=0; $i<$num; $i++) {
-		//generate a random date
-		$date=rand_date("2014/11/01", "2015/03/08", 1);
-		
-		//check to make sure generated idle time is 25% or less of run time
-		do {
-			$run_time=rand_date("2015/02/28", "2015/03/08", 0.75);
-			$idle_time=rand_date("2015/02/28", "2015/03/08", 0.25);
-		}while (timeRatio($idle_time, $run_time) <= 0.25 );
-
-		$up_time=add_HMS_Time($run_time, $idle_time);
-
-		//randomize boolean true and false for P_Run_Success
-		$run_success= mt_rand(0,99999)%2;
-		
-		//randomize success rate for p_comp_success_rate that is 87%<p<99%
-		do {
-			$comp_rate = mt_rand(0,100)/100;
-		} while ($comp_rate <= 0.87);
-
-		mysql_query("REPLACE INTO PROGRAM_LOG
-			(PROGRAM_ID, PROGRAM_LOG_DATE, MACHINE_ID, OPERATOR_ID, 
-				P_UP_TIME, P_RUN_TIME, P_IDLE_TIME, P_RUN_SUCCESS, P_COMP_SUCCESS_RATE) 
-			VALUES ('$p_id', '$date', '$m_id', '$op_id','$up_time', '$run_time', 
-				'$idle_time', '$run_success', '$comp_rate') ") 
-			or die(mysql_error());
-	}
-}
-
+/* Display Program Log and Machine Log as HTML table in a new window */
 function displayData() {
 
 	//Query results
@@ -192,10 +196,11 @@ function displayData() {
     }
 }
 
-generateIDs(1000);
+generateIDs(100);
 displayData();
 
 //Terminate connection
 mysql_close($conn);
 ?>
+
 

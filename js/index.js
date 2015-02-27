@@ -15,7 +15,6 @@ $(document).ready(function() {
   });
   
   // On scroll, remove class on active element and add it to the new one
-  
   $(document).scroll(function() {
      
      var position = Math.floor($(this).scrollTop() / 800) + 1;
@@ -26,6 +25,7 @@ $(document).ready(function() {
   });
   
   var r_select = $('#dash_head').text();
+  
   // On Hover, displays hovered row data to 4 boxes
   $('table tbody tr').hover(
     function() {
@@ -47,7 +47,11 @@ $(document).ready(function() {
   });
 
   // Correct the table header column width
-  $('')
+    var table = document.getElementById('t_body');
+    var table_head = document.getElementById('t_head');
+    for (var x=0; x < table.rows[1].cells.length; x++) {    
+        table_head.rows[0].cells[x].style.width = table.rows[1].cells[x].offsetWidth;
+    }
 
 });
 
@@ -56,6 +60,7 @@ function changeBorderColor (id) {
   document.getElementById('program').style.border = "7px solid #a1a1a1";
   document.getElementById('machine').style.border = "7px solid #a1a1a1";
   document.getElementById(id).style.border = "7px solid red";
+  //document.getElementById('form_text').style.color = "#666";
   disableInputField('document.mainform', 'select_program', 'm_id, m_date, all_machine');
   disableInputField('document.mainform', 'select_machine', 'p_id, p_date, all_program');
 }
@@ -86,12 +91,12 @@ var obs = obstr.split(",");
 }
 
 //Zoom-in and Zoom-out font sizes
-var fontSize = 1;
+var fontSize = 100;
 function zoomIn() {
-    fontSize += 0.1;
-    document.body.style.fontSize = fontSize + "em";
+    fontSize += 10;
+    document.body.style.zoom = fontSize + "%";
 }
 function zoomOut() {
-    fontSize -= 0.1;
-    document.body.style.fontSize = fontSize + "em";
+    fontSize -= 10;
+    document.body.style.zoom = fontSize + "%";
 }

@@ -128,7 +128,7 @@
           echo "<table cellpadding='0' cellspacing='0' border='0' width='100%''>";
           $col_stack = array();
 
-          echo "<thead><tr>";
+          echo "<thead id='t_head'><tr>";
           //$x=0;
           while ($col_head = mysql_fetch_assoc($query_colHead)) {
             echo "<th>".$col_head['Field']."</th>";
@@ -136,7 +136,7 @@
             //$x++;
           }
 
-          echo "</tr></thead><tbody class='tableBody'>";
+          echo "</tr></thead><tbody id='t_body' class='tableBody'>";
           $col_head_count = count($col_stack); //This is the number of Columns of the table
           while($res=mysql_fetch_array($query)) {
             echo "<tr>";      //Begin row

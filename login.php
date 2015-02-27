@@ -1,4 +1,5 @@
 <?php
+
     session_start();
     if(isset($_POST['submit']))
     {
@@ -11,8 +12,7 @@
 
       if($match > 0)
       {
-        //$.post('test.php', {username:'test'});
-        header('Location: main.php');
+        header("Location: main.php?user=".base64_encode($name));
         exit();
       }
       else { echo 'Incorrect, enter both username and password again'; }
@@ -53,6 +53,8 @@
       color: #fff;
     }
    </style> 
+
+
   <title>CNC Time Management Software Login</title>
 </head>
 
@@ -93,10 +95,11 @@
       		    <tr>
         	      <td width="20">&nbsp;</td>
         	      <td width="221" valign="bottom">
-      			       <p><input type="text" name="username" placeholder="Your User Name" size="25" onblur="javascript:if(this.value==''){this.placeholder='Your User Name'}"></p>
-      			       <p><input type="password" name="pwd" placeholder="Your Password" size="25"></p>
-                   <p><input type="submit" name="submit" value="Submit"></p>
-      		      </td>
+      			       <p><input type="text" id='usrn1' name="username" placeholder="Your User Name" size="25" onblur="javascript:if(this.value==''){this.placeholder='Your User Name'}"></p>
+      			       <p><input type="password" id='pwd1' name="pwd" placeholder="Your Password" size="25"></p>
+                   <p><input type="submit" id='btnQueryString' name="submit" value="Submit"></p>
+      		        
+                </td>
       	        <td width="221" valign="bottom"><span class="footer"></td>
                 <td width="20">&nbsp;</td>
               </tr>
@@ -119,6 +122,8 @@
     </tr>
   </tbody>
   </table>
+
+  <script src="js/index.js"></script>
 
 </body>
 </html>

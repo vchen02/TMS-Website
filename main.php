@@ -3,8 +3,12 @@
     $conn = mysql_connect('localhost', 'root', 'root') or die(mysql_error());
     mysql_select_db('TMS') or die(mysql_error());
 
-    $user = $_POST['username'];
-    $query = mysql_query("select * from users where USER_ID=".$user." and USER_TYPE='admin'");
+    parse_str($_SERVER['QUERY_STRING']);
+    $username = base64_decode($user);
+    $query = mysql_query("select * from users where USER_ID='$username'");
+
+    $user_type = mysql_fetch_assoc($query);
+    echo "<script type='text/javascript'> alert('You are logged in as ' + '$username'); </script>";
 ?>
 
 <html>
@@ -69,17 +73,17 @@
     <div class="home_content"  id="program">
       <h1>Program</h1>
       <div class="first">
-        <label>Enter Program Number:</label><br>
+        <label >Enter Program Number:</label><br>
         <input id="program_id" name="p_id" placeholder="Program ID">
       </div> 
        
       <div class="second">
-        <label>Select the Date:</label><br>
+        <label >Select the Date:</label><br>
         <input id="program_date" name="p_date" type="date">
       </div>
 
       <div class="third">
-        <label>
+        <label >
             <span>Show All Program IDs</span>
             <input type="checkbox" name="all_program" value="all_program" 
             
@@ -113,18 +117,13 @@
     <input id="bigbutton" type="submit" value="Show Dashboard" />
   </form>
 
-<!-- 
   <?php
-  //  if(mysql_num_rows($query) > 0) {
-   //   echo "<form id='injectform' target='_blank' action='inject.php' method='POST'>
-     //         <input id='inject_button' type='submit' value='Inject Data'/>
-       //     </form>";
+    if($user_type['USER_TYPE'] == 'admin') {
+      echo "<form id='injectform' target='_blank' action='inject.php' method='POST'>
+              <input id='inject_button' type='submit' value='Inject Data'/>
+            </form>"; 
     }
-  ?> -->
-
- <form id="injectform" target="_blank" action="inject.php" method="POST">
-    <input id="inject_button" type="submit" value="Inject Data"/>
-  </form>
+  ?>
 
 </section>
 
