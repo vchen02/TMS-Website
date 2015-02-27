@@ -61,11 +61,11 @@
     <div class="user_select">
       <label for="select_program" style="position:absolute; left: 15%;">
         <input type="radio" id="select_program" name="radio_select" value="dashboard_p" 
-        onclick="changeBorderColor('program')">
+        onclick="changeBorderColor('program')" required/>
         <span>Program Dashboard</span></label>
       <label for="select_machine" style="position:absolute; right: 15%;">
         <input type="radio" id="select_machine" name="radio_select" value="dashboard_m"
-        onclick="changeBorderColor('machine')">
+        onclick="changeBorderColor('machine')" required/>
         <span>Machine Dashboard</span></label>
     </div>
 
@@ -74,18 +74,18 @@
       <h1>Program</h1>
       <div class="first">
         <label >Enter Program Number:</label><br>
-        <input id="program_id" name="p_id" placeholder="Program ID">
+        <input id="program_id" name="p_id" placeholder="Program ID"/>
       </div> 
        
       <div class="second">
         <label >Select the Date:</label><br>
-        <input id="program_date" name="p_date" type="date">
+        <input id="program_date" name="p_date" type="date"/>
       </div>
 
       <div class="third">
         <label >
             <span>Show All Program IDs</span>
-            <input type="checkbox" name="all_program" value="all_program" 
+            <input type="checkbox" name="all_program" value="all_program"/> 
             
         </label>
       </div>
@@ -96,19 +96,19 @@
       <h1>Machine</h1>
       <div class="first">
         <label>Enter Machine Number:</label><br>
-        <input id="machine_id" name="m_id" placeholder="Machine ID">
+        <input id="machine_id" name="m_id" placeholder="Machine ID"/>
       </div> 
 
       <div class="second">
         <label>Select the Date:</label><br>
-        <input id="machine_date" name="m_date" type="date">
+        <input id="machine_date" name="m_date" type="date"/>
       </div>
 
       <div class="third">
         <label>
             <span>Show All Machine IDs</span>
             <input type="checkbox" name="all_machine" value="all_machine" 
-            onclick="disableInputField('document.mainform', 'all_machine', 'm_id, m_date')">
+            onclick="disableInputField('document.mainform', 'all_machine', 'm_id, m_date')"/>
         </label> 
       </div>
     </div>
